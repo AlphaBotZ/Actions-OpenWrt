@@ -21,5 +21,5 @@
 
 #添加额外软件包
 #git clone https://github.com/P3TERX/xxx package/xxx
-git clone https://github.com/kenzok8/openwrt-packages package/openwrt-packages
-git clone https://github.com/kenzok8/small package/small
+git clone https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
+git clone https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
