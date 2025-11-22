@@ -127,28 +127,6 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir || true
         
-      # 自动检测磁盘空间不足时才清理
-      - name: Check and Clean Disk Space
-        run: |
-          echo "Checking disk space..."
-          FREE_SPACE=$(df -h / | awk 'NR==2 {print $4}' | sed 's/G//')
-          echo "Available space: ${FREE_SPACE}G"
-
-          # 如果可用空间小于 15GB，则执行清理
-          THRESHOLD=15
-          if [ "$FREE_SPACE" -lt "$THRESHOLD" ]; then
-            echo "Free space < ${THRESHOLD}G, cleaning up..."
-            sudo rm -rf /usr/share/dotnet
-            sudo rm -rf /usr/local/lib/android
-            sudo rm -rf /opt/ghc
-            sudo apt-get clean
-            sudo rm -rf /var/lib/apt/lists/*
-          else
-            echo "Sufficient disk space, skip cleanup."
-          fi
-
-          df -h
-
       - name: Update feeds
         run: ./scripts/feeds update -a
 
