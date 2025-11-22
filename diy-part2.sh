@@ -51,6 +51,7 @@ git clone https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 git clone https://github.com/kiddin9/luci-app-adguardhome package/luci-app-adguardhome
 
 # Cloudflare测速 LuCI界面
-git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
+git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/luci-app-cloudflarespeedtest
+git clone https://github.com/XIU2/CloudflareSpeedTest package/CloudflareSpeedTest
 
 # 温馨提示：如需更多定制，可继续在此文件添加git clone或CONFIG_PACKAGE_xxx项
