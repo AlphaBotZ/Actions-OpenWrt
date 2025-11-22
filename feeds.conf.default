@@ -6,7 +6,6 @@ src-git telephony https://github.com/openwrt/telephony
 # 以下为第三方常用插件/源（如有自定义插件需求可添加，未必每项都需开启）：
 
 # 科学上网插件
-src-git helloworld https://github.com/fw876/helloworld
 src-git passwall https://github.com/xiaorouji/openwrt-passwall
 
 # 广告过滤
