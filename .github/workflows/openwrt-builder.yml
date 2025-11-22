@@ -27,6 +27,7 @@ env:
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
+  MIN_REQUIRED_SPACE_GB: 30  # 最低所需磁盘空间(GB)
 
 jobs:
   build:
@@ -38,30 +39,64 @@ jobs:
       with:
         fetch-depth: 1
 
+    - name: Check Disk Space and Cleanup if Needed
+      run: |
+        # 转换为GB（向上取整）
+        MIN_REQUIRED_SPACE=$((MIN_REQUIRED_SPACE_GB * 1024))
+        echo "最低所需磁盘空间: $MIN_REQUIRED_SPACE_GB GB"
+        
+        # 获取当前可用空间(MB)
+        AVAILABLE_SPACE=$(df -P / | tail -1 | awk '{print $4}')
+        AVAILABLE_GB=$((AVAILABLE_SPACE / 1024))
+        echo "当前可用磁盘空间: $AVAILABLE_GB GB"
+        
+        # 检查空间是否充足
+        if [ $AVAILABLE_SPACE -lt $MIN_REQUIRED_SPACE ]; then
+          echo "磁盘空间不足，开始清理..."
+          
+          # 清理Docker镜像和容器
+          sudo docker system prune -af || true
+          
+          # 清理APT缓存
+          sudo apt-get clean || true
+          sudo apt-get autoremove -y --purge || true
+          
+          # 清理GitHub Actions缓存
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+          
+          # 再次检查空间
+          AVAILABLE_SPACE_AFTER=$(df -P / | tail -1 | awk '{print $4}')
+          AVAILABLE_GB_AFTER=$((AVAILABLE_SPACE_AFTER / 1024))
+          echo "清理后可用磁盘空间: $AVAILABLE_GB_AFTER GB"
+          
+          # 如果仍不足则失败
+          if [ $AVAILABLE_SPACE_AFTER -lt $MIN_REQUIRED_SPACE ]; then
+            echo "错误: 清理后磁盘空间仍不足"
+            exit 1
+          fi
+        fi
+
     - name: Prepare Environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        # NOTE: modified to avoid removing apt source lists which can cause "Unable to locate package"
-        # Keep docker cleanup to free space but don't remove apt sources
+        # 保留docker清理以释放空间但不删除apt源
         sudo docker image prune --all --force || true
 
-        # Ensure core utilities for managing apt and repositories
+        # 确保管理apt和仓库的核心工具
         sudo apt-get update -y
         sudo apt-get install -y --no-install-recommends software-properties-common ca-certificates curl gnupg lsb-release
 
-        # Enable universe (some packages live there)
+        # 启用universe仓库
         sudo add-apt-repository -y universe || true
         sudo apt-get update -y
 
-        # Install NodeSource NodeJS 18 (for consistent npm/node availability)
-        # Use NodeSource setup only if node is missing or outdated
+        # 安装NodeSource NodeJS 18
         if ! command -v node >/dev/null 2>&1 || [ "$(node -v 2>/dev/null | sed 's/v\([0-9]*\).*/\1/')" -lt 18 ]; then
           curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - || true
         fi
 
-        # Attempt to install a comprehensive set of build dependencies.
-        # If apt fails for some packages, we'll try per-package fallback installs below.
+        # 安装构建依赖
         PACKAGES="
           ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential
           bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext
@@ -72,44 +107,43 @@ jobs:
           nodejs npm rsync pigz bc ccache
         "
 
-        echo "Installing apt packages..."
+        echo "安装apt包..."
         if ! sudo apt-get install -y --no-install-recommends $PACKAGES; then
-          echo "apt-get install returned an error. Continuing and will apply fallbacks where needed."
+          echo "apt-get安装出错，将继续并尝试 fallback 安装"
         fi
 
-        # Ensure pip is available
+        # 确保pip可用
         if ! command -v pip3 >/dev/null 2>&1; then
           sudo python3 -m pip install --upgrade pip setuptools wheel || true
         fi
 
-        # Ensure scons exists (can be provided by apt or pip)
+        # 确保scons存在
         if ! command -v scons >/dev/null 2>&1; then
-          echo "scons not found - installing via pip (user)"
+          echo "未找到scons - 通过pip安装"
           python3 -m pip install --user scons || true
           export PATH="$HOME/.local/bin:$PATH"
         fi
 
-        # Ensure uglifyjs (uglify-js) exists - install via npm if missing
+        # 确保uglifyjs存在
         if ! command -v uglifyjs >/dev/null 2>&1; then
-          echo "uglifyjs not found - installing uglify-js via npm"
+          echo "未找到uglifyjs - 通过npm安装"
           if ! command -v npm >/dev/null 2>&1; then
             sudo apt-get install -y --no-install-recommends npm || true
           fi
-          # prefer global install for system availability
           sudo npm install -g uglify-js || npm install --no-save uglify-js || true
         fi
 
-        # Ensure xsltproc exists (provided by libxslt1-utils on ubuntu)
+        # 确保xsltproc存在
         if ! command -v xsltproc >/dev/null 2>&1; then
           sudo apt-get install -y --no-install-recommends libxslt1-utils || true
         fi
 
-        # Ensure subversion (svn) exists; fallback apt install already attempted
+        # 确保subversion存在
         if ! command -v svn >/dev/null 2>&1; then
           sudo apt-get install -y --no-install-recommends subversion || true
         fi
 
-        # Ensure node and npm are on PATH (in case of user installs)
+        # 确保node和npm在PATH中
         export PATH="$HOME/.local/bin:$PATH"
         if command -v node >/dev/null 2>&1; then
           echo "node: $(node -v)"
@@ -118,26 +152,15 @@ jobs:
           echo "npm: $(npm -v)"
         fi
 
-        # Cleanup apt
+        # 清理apt
         sudo apt-get -y autoremove --purge || true
         sudo apt-get -y clean || true
 
-        # Timezone and workspace directory
+        # 时区和工作目录
         sudo timedatectl set-timezone "$TZ" || true
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir || true
-        
-      - name: Update feeds
-        run: ./scripts/feeds update -a
 
-      - name: Install feeds
-        run: ./scripts/feeds install -a
-
-      - name: Download packages
-        run: make download -j$(nproc)
-
-      - name: Compile Firmware (use pigz and maximal concurrency)
-        run: make -j$(nproc) V=s
     - name: Clone OpenWrt Source
       working-directory: /workdir
       run: |
@@ -182,7 +205,7 @@ jobs:
         until [ $retry -ge 3 ]; do
           make download -j$(nproc) && break
           retry=$[$retry+1]
-          echo "Retrying download ($retry)..."
+          echo "重试下载 ($retry)..."
           sleep 10
         done
         find dl -size -1024c -exec ls -l {} \;
@@ -195,7 +218,7 @@ jobs:
         FORCE_UNSAFE_CONFIGURE: 1
       run: |
         cd openwrt
-        echo -e "$(nproc) thread compile"
+        echo -e "$(nproc) 线程编译"
         make -j$(nproc) || make -j1 V=s
         echo "status=success" >> $GITHUB_OUTPUT
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
