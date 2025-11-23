@@ -32,7 +32,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout Source
@@ -40,90 +40,75 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: Prepare Environment
+    - name: Check server configuration
+      run: |
+        echo "警告⚠"
+        echo "若分配的服务器性能不足，务必及时取消，重新运行！"
+        echo "已知编译成功CPU型号：8370C,8171M"
+        echo "已知性能不足CPU型号：8272CL"
+        echo -e "-------------- ------------CPU信息------------------------------------------\n"
+        echo "CPU物理数量:$(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
+        echo -e "CPU核心及版本信息：$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
+        echo "-------------------------------内存信息-------------------------------------------"
+        echo "已安装内存详细信息："
+        sudo lshw -short -C memory | grep GiB
+        echo -e "\n"
+        echo "-----------------------------硬盘信息---------------------------------------------"
+        echo -e  "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
+        echo "硬盘详情："
+        df -Th
+
+    - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        # 保留docker清理以释放空间但不删除apt源
-        sudo docker image prune --all --force || true
+        # docker rmi `docker images -q`
+        sudo swapoff -a
+        sudo rm -f /swapfile /mnt/swapfile
+        sudo docker image prune -a -f
+        sudo systemctl stop docker
+        sudo snap set system refresh.retain=2
+        sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android 2>/dev/null
+        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
+        sudo -E apt -y purge azure-cli ghc* zulu* texlive* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
+        [[ -n "${AGENT_TOOLSDIRECTORY}" ]] && sudo rm -rf "${AGENT_TOOLSDIRECTORY}"
+        sudo -E apt update
+        sudo -E apt -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
+        sudo -E apt -y install clang llvm lld
+        sudo -E apt -y autoremove --purge
+        sudo -E systemctl daemon-reload
+        sudo -E apt clean && sudo -E apt autoclean
+        sudo timedatectl set-timezone "$TZ"
+        # sudo mkdir -p /mnt/workdir
+        # sudo chown $USER:$GROUPS /mnt/workdir
+        echo "status=success" >> ${GITHUB_OUTPUT}
+        df -Th
 
-        # 确保管理apt和仓库的核心工具
-        sudo apt-get update -y
-        sudo apt-get install -y --no-install-recommends software-properties-common ca-certificates curl gnupg lsb-release
+    - name: Create Swap
+      run: |
+        sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=8192
+        sudo chmod 600 /mnt/swapfile
+        sudo mkswap /mnt/swapfile
+        sudo swapon /mnt/swapfile
+        free -h | grep -i swap
 
-        # 启用universe仓库
-        sudo add-apt-repository -y universe || true
-        sudo apt-get update -y
-
-        # 安装NodeSource NodeJS 18
-        if ! command -v node >/dev/null 2>&1 || [ "$(node -v 2>/dev/null | sed 's/v\([0-9]*\).*/\1/')" -lt 18 ]; then
-          curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - || true
-        fi
-
-        # 安装构建依赖
-        PACKAGES="
-          ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential
-          bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext
-          gcc-multilib g++-multilib git gperf help2man intltool libncurses-dev libncurses5-dev
-          libssl-dev libtool libxml-parser-perl make mercurial ncurses-term patch pkg-config
-          python3 python3-dev python3-pip python3-setuptools unzip uuid-dev wget xz-utils zip
-          zlib1g-dev subversion libxslt1.1 libxslt1-dev libxslt1-utils libxml2-utils
-          nodejs npm rsync pigz bc ccache
-        "
-
-        echo "安装apt包..."
-        if ! sudo apt-get install -y --no-install-recommends $PACKAGES; then
-          echo "apt-get安装出错，将继续并尝试 fallback 安装"
-        fi
-
-        # 确保pip可用
-        if ! command -v pip3 >/dev/null 2>&1; then
-          sudo python3 -m pip install --upgrade pip setuptools wheel || true
-        fi
-
-        # 确保scons存在
-        if ! command -v scons >/dev/null 2>&1; then
-          echo "未找到scons - 通过pip安装"
-          python3 -m pip install --user scons || true
-          export PATH="$HOME/.local/bin:$PATH"
-        fi
-
-        # 确保uglifyjs存在
-        if ! command -v uglifyjs >/dev/null 2>&1; then
-          echo "未找到uglifyjs - 通过npm安装"
-          if ! command -v npm >/dev/null 2>&1; then
-            sudo apt-get install -y --no-install-recommends npm || true
-          fi
-          sudo npm install -g uglify-js || npm install --no-save uglify-js || true
-        fi
-
-        # 确保xsltproc存在
-        if ! command -v xsltproc >/dev/null 2>&1; then
-          sudo apt-get install -y --no-install-recommends libxslt1-utils || true
-        fi
-
-        # 确保subversion存在
-        if ! command -v svn >/dev/null 2>&1; then
-          sudo apt-get install -y --no-install-recommends subversion || true
-        fi
-
-        # 确保node和npm在PATH中
-        export PATH="$HOME/.local/bin:$PATH"
-        if command -v node >/dev/null 2>&1; then
-          echo "node: $(node -v)"
-        fi
-        if command -v npm >/dev/null 2>&1; then
-          echo "npm: $(npm -v)"
-        fi
-
-        # 清理apt
-        sudo apt-get -y autoremove --purge || true
-        sudo apt-get -y clean || true
-
-        # 时区和工作目录
-        sudo timedatectl set-timezone "$TZ" || true
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir || true
+    - name: Create simulated physical disk
+      run: |
+        mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
+        root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
+        sudo truncate -s "${mnt_size}"G /mnt/mnt.img
+        sudo truncate -s "${root_size}"G /root.img
+        sudo losetup /dev/loop6 /mnt/mnt.img
+        sudo losetup /dev/loop7 /root.img
+        sudo pvcreate /dev/loop6
+        sudo pvcreate /dev/loop7
+        sudo vgcreate github /dev/loop6 /dev/loop7
+        sudo lvcreate -n runner -l 100%FREE github
+        sudo mkfs.xfs /dev/github/runner
+        sudo mkdir -p /builder
+        sudo mount /dev/github/runner /builder
+        sudo chown -R runner.runner /builder
+        df -Th
 
     - name: Clone OpenWrt Source
       working-directory: /workdir
