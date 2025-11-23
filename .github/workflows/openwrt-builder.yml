@@ -39,43 +39,6 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: Check Disk Space and Cleanup if Needed
-      run: |
-        # 转换为GB（向上取整）
-        MIN_REQUIRED_SPACE=$((MIN_REQUIRED_SPACE_GB * 1024))
-        echo "最低所需磁盘空间: $MIN_REQUIRED_SPACE_GB GB"
-        
-        # 获取当前可用空间(MB)
-        AVAILABLE_SPACE=$(df -P / | tail -1 | awk '{print $4}')
-        AVAILABLE_GB=$((AVAILABLE_SPACE / 1024))
-        echo "当前可用磁盘空间: $AVAILABLE_GB GB"
-        
-        # 检查空间是否充足
-        if [ $AVAILABLE_SPACE -lt $MIN_REQUIRED_SPACE ]; then
-          echo "磁盘空间不足，开始清理..."
-          
-          # 清理Docker镜像和容器
-          sudo docker system prune -af || true
-          
-          # 清理APT缓存
-          sudo apt-get clean || true
-          sudo apt-get autoremove -y --purge || true
-          
-          # 清理GitHub Actions缓存
-          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
-          
-          # 再次检查空间
-          AVAILABLE_SPACE_AFTER=$(df -P / | tail -1 | awk '{print $4}')
-          AVAILABLE_GB_AFTER=$((AVAILABLE_SPACE_AFTER / 1024))
-          echo "清理后可用磁盘空间: $AVAILABLE_GB_AFTER GB"
-          
-          # 如果仍不足则失败
-          if [ $AVAILABLE_SPACE_AFTER -lt $MIN_REQUIRED_SPACE ]; then
-            echo "错误: 清理后磁盘空间仍不足"
-            exit 1
-          fi
-        fi
-
     - name: Prepare Environment
       env:
         DEBIAN_FRONTEND: noninteractive
