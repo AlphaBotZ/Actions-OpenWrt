@@ -8,7 +8,7 @@
 # 修改默认IP
 sed -i 's/192.168.1.1/192.168.88.2/g' package/base-files/files/bin/config_generate
 
-# 只用 luci-theme-argon 主题
+# luci-theme-argon 主题
 git clone https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
 
 # 打印服务器及相关USB/文件系统驱动
