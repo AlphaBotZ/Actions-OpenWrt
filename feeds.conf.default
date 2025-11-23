@@ -1,17 +1,9 @@
-src-git packages https://github.com/openwrt/packages
-src-git luci https://github.com/openwrt/luci
-src-git routing https://github.com/openwrt-routing/packages
-src-git telephony https://github.com/openwrt/telephony
-
-# 以下为第三方常用插件/源（如有自定义插件需求可添加，未必每项都需开启）：
-
-# 科学上网插件
-src-git passwall https://github.com/xiaorouji/openwrt-passwall
-
-# 广告过滤
-src-git adguardhome https://github.com/kiddin9/luci-app-adguardhome
-
-# Cloudflare测速（LuCI界面插件）
-src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git
-
-# 若将某源禁用请在行首加#
+src-git packages https://github.com/coolsnowwolf/packages
+src-git luci https://github.com/coolsnowwolf/luci
+src-git routing https://git.openwrt.org/feed/routing.git
+src-git telephony https://git.openwrt.org/feed/telephony.git
+#src-git video https://github.com/openwrt/video.git
+#src-git targets https://github.com/openwrt/targets.git
+#src-git oldpackages http://git.openwrt.org/packages.git
+#src-link custom /usr/src/openwrt/custom-feed
+#src-git helloworld https://github.com/fw876/helloworld
