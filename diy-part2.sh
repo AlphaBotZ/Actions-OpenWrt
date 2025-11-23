@@ -42,14 +42,6 @@ echo "CONFIG_PACKAGE_luci-app-wol=y" >> .config               # 网络唤醒
 echo "CONFIG_PACKAGE_luci-app-nlbwmon=y" >> .config           # 流量统计
 echo "CONFIG_PACKAGE_luci-app-arpbind=y" >> .config           # MAC绑定
 
-# 科学上网/网络插件
-git clone https://github.com/fw876/helloworld package/helloworld
-git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
-git clone https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
-
-# 广告过滤
-git clone https://github.com/kiddin9/luci-app-adguardhome package/luci-app-adguardhome
-
 # Cloudflare测速 LuCI界面
 git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/luci-app-cloudflarespeedtest
 git clone https://github.com/XIU2/CloudflareSpeedTest package/CloudflareSpeedTest
