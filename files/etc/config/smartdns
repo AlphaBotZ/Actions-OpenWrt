@@ -1,0 +1,6 @@
+config smartdns 'default'
+    option enabled '1'
+    option port '6053'
+    option cache_size '512'
+    option prefetch_domain '1'
+    option force_tcp '0'
