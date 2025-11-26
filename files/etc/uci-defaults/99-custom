@@ -1,6 +1,17 @@
 #!/bin/sh
-# 这个脚本会在第一次启动时执行
-uci set system.@system[0].hostname='OpenWrt-Master'
+# 设置默认主题 Argon
 uci set luci.main.mediaurlbase='/luci-static/argon'
-uci commit system
+
+# 启用 AdGuardHome
+uci set adguardhome.default.enabled='1'
+
+# 启用 SmartDNS
+uci set smartdns.default.enabled='1'
+
+# 启用 Docker
+uci set docker.default.data_root='/opt/docker'
+
 uci commit luci
+uci commit adguardhome
+uci commit smartdns
+uci commit docker
