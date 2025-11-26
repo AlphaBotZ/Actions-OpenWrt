@@ -20,8 +20,8 @@
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
 # Cloudflare测速 LuCI界面
-git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest/tree/main/applications/luci-app-cloudflarespeedtest package/luci-app-cloudflarespeedtest
-git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest/tree/master/cdnspeedtest package/CloudflareSpeedTest
+git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/luci-app-cloudflarespeedtest
+git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest package/CloudflareSpeedTest
 
 # OpenWrt-nikki 插件
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
