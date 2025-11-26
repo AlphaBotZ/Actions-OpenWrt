@@ -5,11 +5,3 @@ src-git routing https://github.com/coolsnowwolf/routing
 src-git telephony https://github.com/coolsnowwolf/telephony
 src-git video https://github.com/coolsnowwolf/video
 
-# CloudflareSpeedTest LuCI 界面
-src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest
-
-# CloudflareSpeedTest 核心程序
-src-git cf_speedtest https://github.com/XIU2/CloudflareSpeedTest
-
-# OpenWrt-nikki 插件
-src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki
