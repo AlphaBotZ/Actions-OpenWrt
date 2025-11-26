@@ -20,4 +20,4 @@
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
 # OpenWrt-nikki 插件
-git clone nikki https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
+git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
