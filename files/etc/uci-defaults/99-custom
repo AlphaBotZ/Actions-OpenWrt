@@ -1,0 +1,4 @@
+#!/bin/sh
+# 这个脚本会在第一次启动时执行
+uci set system.@system[0].hostname='OpenWrt-Master'
+uci commit system
