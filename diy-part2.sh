@@ -23,3 +23,5 @@
 git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/luci-app-cloudflarespeedtest
 git clone https://github.com/XIU2/CloudflareSpeedTest package/CloudflareSpeedTest
 
+# OpenWrt-nikki 插件
+git clone nikki https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
