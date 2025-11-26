@@ -3,10 +3,10 @@
 uci set luci.main.mediaurlbase='/luci-static/argon'
 
 # 启用 AdGuardHome
-uci set adguardhome.default.enabled='1'
+uci set adguardhome.default.enabled='0'
 
 # 启用 SmartDNS
-uci set smartdns.default.enabled='1'
+uci set smartdns.default.enabled='0'
 
 # 启用 Docker
 uci set docker.default.data_root='/opt/docker'
