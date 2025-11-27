@@ -27,7 +27,8 @@ git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/luc
 git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest package/CloudflareSpeedTest
 git clone https://github.com/rufengsuixing/luci-app-adguardhome package/luci-app-adguardhome
 git clone https://github.com/rufengsuixing/luci-app-zerotier package/luci-app-zerotier
-git clone https://github.com/xiaorouji/openwrt-passwall2 packag/openwrt-passwall2
+git clone https://github.com/xiaorouji/openwrt-passwall2 package/openwrt-passwall2
+git clone https://github.com/vernesong/OpenClash package/OpenClash
 
 # OpenWrt-nikki 插件
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
