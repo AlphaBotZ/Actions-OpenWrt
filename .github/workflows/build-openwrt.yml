@@ -30,7 +30,6 @@ jobs:
         run: |
           git clone https://github.com/openwrt/openwrt.git $OPENWRT_SRC
           cd $OPENWRT_SRC
-          # 可选择分支或 tag
           git checkout v23.05.3
 
       # 4️⃣ 复制 config 文件
@@ -63,9 +62,9 @@ jobs:
           cd $OPENWRT_SRC
           make -j$(nproc) V=s
 
-      # 9️⃣ 打包固件到 artifact
+      # 9️⃣ 上传 Artifact（v4）
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: openwrt-x86_64
           path: $OPENWRT_SRC/bin/targets/x86/64/
