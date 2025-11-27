@@ -22,17 +22,37 @@
 # Files大法文件权限
 chmod -R 755 files
 
-# Cloudflare测速
-git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/luci-app-cloudflarespeedtest
-git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest package/CloudflareSpeedTest
+#!/bin/bash
+set -e
 
-# 去广告
-git clone https://github.com/rufengsuixing/luci-app-adguardhome package/luci-app-adguardhome
+# ===== OpenClash =====
+git clone https://github.com/vernesong/OpenClash.git package/openclash
 
-# 远程访问
-git clone https://github.com/rufengsuixing/luci-app-zerotier package/luci-app-zerotier
+# ===== Passwall =====
+git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
+git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 
-# 科学上网
-git clone https://github.com/xiaorouji/openwrt-passwall2 package/openwrt-passwall2
-git clone https://github.com/vernesong/OpenClash package/OpenClash
-git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
+# ===== AdGuardHome / Dockerman =====
+git clone https://github.com/kenzok8/small-package.git package/small-package
+
+# ===== Tailscale =====
+git clone https://github.com/sbwml/openwrt_helloworld.git package/helloworld
+
+# ===== CloudflareSpeedTest =====
+git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
+
+# ===== CDN SpeedTest =====
+git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git package/openwrt-cdnspeedtest
+
+# ===== ZeroTier =====
+git clone https://github.com/immortalwrt/luci.git package/immortalwrt-luci-temp
+mv package/immortalwrt-luci-temp/applications/luci-app-zerotier package/luci-app-zerotier
+rm -rf package/immortalwrt-luci-temp
+
+git clone https://github.com/openwrt/packages.git package/openwrt-packages-temp
+mv package/openwrt-packages-temp/net/zerotier package/zerotier
+rm -rf package/openwrt-packages-temp
+
+# ===== OpenWrt-nikki =====
+git clone https://github.com/nikkinikki-org/OpenWrt-nikki.git package/OpenWrt-nikki
+
