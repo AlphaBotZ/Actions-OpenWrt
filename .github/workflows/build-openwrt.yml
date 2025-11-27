@@ -36,7 +36,7 @@ jobs:
       # 4️⃣ 复制 config 文件
       - name: Copy .config
         run: |
-          cp ${{ github.workspace }}/.config $OPENWRT_SRC/.config
+          cp ${{ github.workspace }}/official.config $OPENWRT_SRC/.config
 
       # 5️⃣ 拉取社区插件
       - name: Clone community packages
