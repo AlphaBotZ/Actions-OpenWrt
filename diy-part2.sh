@@ -22,13 +22,17 @@
 # Files
 chmod -R 755 files
 
-# Cloudflare测速 LuCI界面
+# Cloudflare测速
 git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/luci-app-cloudflarespeedtest
 git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest package/CloudflareSpeedTest
+
+# 去广告
 git clone https://github.com/rufengsuixing/luci-app-adguardhome package/luci-app-adguardhome
+
+# 远程访问
 git clone https://github.com/rufengsuixing/luci-app-zerotier package/luci-app-zerotier
 
-# 科学上网插件
+# 科学上网
 git clone https://github.com/xiaorouji/openwrt-passwall2 package/openwrt-passwall2
 git clone https://github.com/vernesong/OpenClash package/OpenClash
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
