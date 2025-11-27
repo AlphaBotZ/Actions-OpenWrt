@@ -26,6 +26,7 @@ chmod -R 755 files
 git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/luci-app-cloudflarespeedtest
 git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest package/CloudflareSpeedTest
 git clone https://github.com/rufengsuixing/luci-app-adguardhome package/luci-app-adguardhome
+git clone https://github.com/rufengsuixing/luci-app-zerotier package/luci-app-zerotier
 
 # OpenWrt-nikki 插件
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
