@@ -49,10 +49,6 @@ git clone https://github.com/immortalwrt/luci.git package/immortalwrt-luci-temp
 mv package/immortalwrt-luci-temp/applications/luci-app-zerotier package/luci-app-zerotier
 rm -rf package/immortalwrt-luci-temp
 
-git clone https://github.com/openwrt/packages.git package/openwrt-packages-temp
-mv package/openwrt-packages-temp/net/zerotier package/zerotier
-rm -rf package/openwrt-packages-temp
-
 # ===== OpenWrt-nikki =====
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki.git package/OpenWrt-nikki
 
