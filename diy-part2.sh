@@ -35,7 +35,7 @@ git clone https://github.com/sbwml/openwrt_helloworld.git package/helloworld
 
 # 更新 golang 1.23 版本
 rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # ===== CloudflareSpeedTest =====
 git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
