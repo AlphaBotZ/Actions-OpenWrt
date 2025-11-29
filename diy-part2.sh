@@ -40,8 +40,13 @@ mv package/small-package-temp/luci-app-adguardhome package/luci-app-adguardhome
 mv package/small-package-temp/luci-app-dockerman package/luci-app-dockerman
 rm -rf package/small-package-temp
 
-# ===== Tailscale =====
+# ===== helloworld =====
+rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 git clone https://github.com/sbwml/openwrt_helloworld.git package/helloworld
+
+# 更新 golang 1.23 版本
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
 
 # ===== CloudflareSpeedTest =====
 git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
