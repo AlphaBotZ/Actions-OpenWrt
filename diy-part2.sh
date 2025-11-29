@@ -47,7 +47,3 @@ git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git pa
 git clone https://github.com/immortalwrt/luci.git package/immortalwrt-luci-temp
 mv package/immortalwrt-luci-temp/applications/luci-app-zerotier package/luci-app-zerotier
 rm -rf package/immortalwrt-luci-temp
-
-# ===== OpenWrt-nikki =====
-git clone https://github.com/nikkinikki-org/OpenWrt-nikki.git package/OpenWrt-nikki
-
