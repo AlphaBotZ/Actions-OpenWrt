@@ -21,8 +21,6 @@
 
 # Files大法文件权限
 chmod -R 755 files
-
-#!/bin/bash
 set -e
 
 # ===== OpenClash =====
