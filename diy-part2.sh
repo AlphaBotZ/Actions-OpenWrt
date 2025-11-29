@@ -44,6 +44,4 @@ git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package
 git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git package/openwrt-cdnspeedtest
 
 # ===== ZeroTier =====
-git clone https://github.com/immortalwrt/luci.git package/immortalwrt-luci-temp
-mv package/immortalwrt-luci-temp/applications/luci-app-zerotier package/luci-app-zerotier
-rm -rf package/immortalwrt-luci-temp
+git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
