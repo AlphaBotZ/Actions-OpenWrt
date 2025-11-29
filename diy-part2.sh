@@ -47,4 +47,4 @@ git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git pa
 git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
 
 # ===== OpenAppFilter =====
-git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter    
+git clone https://github.com/destan19/OpenAppFilter.git package/luci-app-oaf
