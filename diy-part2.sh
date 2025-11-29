@@ -23,15 +23,6 @@
 chmod -R 755 files
 set -e
 
-# ===== OpenClash =====
-git clone https://github.com/vernesong/OpenClash.git package/openclash-temp
-mv package/openclash-temp/luci-app-openclash package/luci-app-openclash
-rm -rf package/openclash-temp
-
-# ===== Passwall =====
-git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
-git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
-
 # ===== AdGuardHome / Dockerman =====
 git clone https://github.com/kenzok8/small-package.git package/small-package-temp
 mv package/small-package-temp/luci-app-adguardhome package/luci-app-adguardhome
