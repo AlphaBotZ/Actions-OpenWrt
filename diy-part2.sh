@@ -48,3 +48,7 @@ git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-ap
 
 # ===== OpenAppFilter =====
 git clone https://github.com/destan19/OpenAppFilter.git package/luci-app-oaf
+
+# ===== Theme =====
+git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
+git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
