@@ -212,7 +212,7 @@ jobs:
         RELEASE_TAG="OpenWrt_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}"
         echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
         {
-          echo "## OpenWrt Master Automated Release"
+          echo "## OpenWrt Official Automated Release"
           echo
           echo "**Target Device:** ${{ env.DEVICE_NAME }}"
           echo "**Build Time:** $(date '+%Y-%m-%d %H:%M:%S %Z')"
