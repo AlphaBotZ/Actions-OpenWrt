@@ -50,6 +50,6 @@ git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-ap
 git clone https://github.com/destan19/OpenAppFilter.git package/luci-app-oaf
 
 # ===== Theme =====
-rm -rf lede/package/lean/luci-theme-argon
+rm -rf package/lean/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
