@@ -25,9 +25,9 @@ set -e
 
 # ===== AdGuardHome / Dockerman =====
 git clone https://github.com/kenzok8/small-package.git package/small-package-temp
-mv package/small-package-temp/luci-app-adguardhome package/luci-app-adguardhome
-mv package/small-package-temp/luci-app-dockerman package/luci-app-dockerman
-rm -rf package/small-package-temp
+# mv package/small-package-temp/luci-app-adguardhome package/luci-app-adguardhome
+# mv package/small-package-temp/luci-app-dockerman package/luci-app-dockerman
+# rm -rf package/small-package-temp
 
 # ===== helloworld =====
 rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
