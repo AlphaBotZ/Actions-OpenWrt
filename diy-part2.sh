@@ -28,8 +28,8 @@ rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftabl
 git clone https://github.com/kenzok8/small-package.git package/small-package
 
 # ===== helloworld =====
-rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
-git clone https://github.com/sbwml/openwrt_helloworld.git package/helloworld
+# rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
+# git clone https://github.com/sbwml/openwrt_helloworld.git package/helloworld
 
 # 更新 golang 1.25 版本
 rm -rf feeds/packages/lang/golang
