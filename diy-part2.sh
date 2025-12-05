@@ -23,9 +23,8 @@
 chmod -R 755 files
 set -e
 
-# ===== AdGuardHome / Dockerman =====
+sed -i '$a src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
 rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
-git clone https://github.com/kenzok8/small-package.git package/small-package
 
 # ===== helloworld =====
 # rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
