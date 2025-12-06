@@ -41,8 +41,12 @@ jobs:
         fetch-depth: 1
         
     - name: Update apt
-      run: sudo apt-get update  
-
+      run: sudo apt-get update
+      
+    - name: Install clang/llvm/lld
+      run: |
+        sudo apt-get install -y clang llvm lld
+        
     - name: Check server configuration
       run: |
         echo "警告⚠"
