@@ -1,5 +1,0 @@
-config adguardhome 'default'
-    option enabled '1'
-    option bind_host '0.0.0.0'
-    option bind_port '3000'
-    option config_path '/root/adguardhome.yaml'
