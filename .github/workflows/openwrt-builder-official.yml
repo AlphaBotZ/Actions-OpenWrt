@@ -39,9 +39,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 1
-        
-    - name: Update apt
-      run: sudo apt-get update
       
     - name: Check server configuration
       run: |
