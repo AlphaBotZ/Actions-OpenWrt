@@ -34,20 +34,15 @@ rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftabl
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
-# ===== CloudflareSpeedTest =====
-git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
-
-# ===== CDN SpeedTest =====
-git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git package/openwrt-cdnspeedtest
-
-# ===== ZeroTier =====
-git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
-
-# ===== OpenAppFilter =====
-git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-
 # ===== Theme =====
 rm -rf package/lean/luci-theme-argon
 rm -rf openwrt/package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
+
+# ===== Community Applications =====
+git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
+git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git package/openwrt-cdnspeedtest
+git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
+git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
