@@ -5,7 +5,7 @@
 # Modified to avoid "Unable to locate package" errors (ref: b1e26b29091e0e5458fefe2a86e21368dae0c054)
 #
 
-name: OpenWrt Builder official
+name: immortalwrt OpenWrt Builder 
 
 on:
   repository_dispatch:
@@ -17,10 +17,10 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: main
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: openwrt.config
+  CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -212,7 +212,7 @@ jobs:
         RELEASE_TAG="OpenWrt_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}"
         echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
         {
-          echo "## OpenWrt Official Automated Release"
+          echo "## immortalwrt OpenWrt Automated Release"
           echo
           echo "**Target Device:** ${{ env.DEVICE_NAME }}"
           echo "**Build Time:** $(date '+%Y-%m-%d %H:%M:%S %Z')"
