@@ -31,8 +31,8 @@ rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftabl
 # git clone https://github.com/sbwml/openwrt_helloworld.git package/helloworld
 
 # 更新 golang 1.25 版本
-rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
+#rm -rf feeds/packages/lang/golang
+#git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # ===== Theme =====
 rm -rf package/lean/luci-theme-argon
