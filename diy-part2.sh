@@ -46,3 +46,4 @@ git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git pa
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
+git clone https://github.com/sbwml/luci-app-openlist2 package/openlist
