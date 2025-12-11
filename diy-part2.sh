@@ -34,6 +34,12 @@ rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftabl
 #rm -rf feeds/packages/lang/golang
 #git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
+# 缺失依赖补充
+git clone https://github.com/besser82/libcrypt-compat.git package/depends
+git clone https://github.com/Anorov/PySocks.git package/depends
+git clone https://github.com/avian2/unidecode.git package/depends
+git clone https://github.com/pypa/setuptools.git package/depends
+
 # ===== Theme =====
 rm -rf package/lean/luci-theme-argon
 rm -rf openwrt/package/luci-theme-argon
