@@ -45,7 +45,6 @@ git clone https://github.com/sbwml/luci-app-openlist2 package/openlist
 git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
 
 # 集成自定义 LuCI 包
-cd openwrt
-[ -d ../luci-app-github-update ] && mv ../luci-app-github-update package/
+git clone https://github.com/AlphaBotZ/Actions-OpenWrt.git package/luci-app-github-update
 echo "CONFIG_PACKAGE_luci-app-github-update=y" >> .config
 chmod +x luci-app-github-update/root/usr/bin/check_update.sh
