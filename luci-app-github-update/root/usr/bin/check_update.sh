@@ -1,5 +1,5 @@
 #!/bin/sh
-REPO="owner/repo"   # 替换成你的 GitHub 仓库，例如 "Teng/Actions-OpenWrt"
+REPO="AlphaBotZ/Actions-OpenWrt"   # 替换成你的 GitHub 仓库，例如 "AlphaBotZ/Actions-OpenWrt"
 API="https://api.github.com/repos/$REPO/releases/latest"
 CURRENT_VERSION=$(cat /etc/openwrt_version)
 
