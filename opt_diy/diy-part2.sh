@@ -45,7 +45,6 @@ mv package/libs/xcrypt ../xcrypt
 cd ..
 rm -rf lede-temp
 
-
 # ===== Theme =====
 rm -rf openwrt/package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
