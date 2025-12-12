@@ -45,5 +45,5 @@ git clone https://github.com/sbwml/luci-app-openlist2 package/openlist
 git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
 
 # ===== GitHub Update Checker =====
-git clone https://github.com/yourname/luci-app-github-update.git package/luci-app-github-update
+mv $GITHUB_WORKSPACE/luci-app-github-update openwrt/package/luci-app-github-update
 echo "CONFIG_PACKAGE_luci-app-github-update=y" >> .config
