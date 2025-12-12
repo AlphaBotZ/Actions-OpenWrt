@@ -40,7 +40,6 @@ rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftabl
 #rm -rf package/lede
 
 # ===== Theme =====
-rm -rf package/lean/luci-theme-argon
 rm -rf openwrt/package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
