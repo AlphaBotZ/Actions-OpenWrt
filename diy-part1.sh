@@ -15,16 +15,6 @@
 #sed -i '1i src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
 #sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 
-# 修改版本标识
-sed -i 's/LEDE/OpenWrt/g' include/version.mk
-
-# 修改固件文件名
-sed -i 's/lede/openwrt/g' target/imagebuilder/files/etc/banner
-
-# 修改配置文件
-sed -i 's/CONFIG_TARGET_LEDE/CONFIG_TARGET_OPENWRT/g' .config
-
-
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
