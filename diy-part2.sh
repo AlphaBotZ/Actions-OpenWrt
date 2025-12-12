@@ -35,9 +35,7 @@ rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftabl
 #git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # 缺失依赖补充
-git clone https://github.com/Anorov/PySocks.git package/PySocks
-git clone https://github.com/avian2/unidecode.git package/unidecode
-git clone https://github.com/pypa/setuptools.git package/setuptools
+
 
 # ===== Theme =====
 rm -rf package/lean/luci-theme-argon
@@ -52,3 +50,4 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
 git clone https://github.com/sbwml/luci-app-openlist2 package/openlist
+git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
