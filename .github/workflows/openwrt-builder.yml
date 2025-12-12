@@ -150,6 +150,13 @@ jobs:
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        
+    - name: Inject build tag into files overlay
+      run: |
+        # 仅当存在 files 目录时注入
+        if [ -d "files" ]; then
+          echo "${{ github.sha }}" > files/etc/firmware_tag || true
+        fi    
 
     - name: Download package
       id: package
