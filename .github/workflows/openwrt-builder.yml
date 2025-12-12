@@ -205,6 +205,15 @@ jobs:
       with:
         name: OpenWrt_Firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
+        
+    - name: Generate SHA256SUMS
+      if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
+      run: |
+        cd "${{ env.FIRMWARE }}"
+        # 只为最终可刷的包生成校验；如需覆盖更多，放宽匹配
+        sha256sum *sysupgrade*.bin > SHA256SUMS
+        echo "SHA256SUMS generated:"
+        cat SHA256SUMS
 
     - name: Generate Release Tag and Description
       id: tag
@@ -218,6 +227,16 @@ jobs:
           echo "**Target Device:** ${{ env.DEVICE_NAME }}"
           echo "**Build Time:** $(date '+%Y-%m-%d %H:%M:%S %Z')"
           echo "**Build Environment:** GitHub Actions (Cloud CI)"
+          echo
+          echo "### SHA256 checksums"
+          if [ -f "${{ env.FIRMWARE }}/SHA256SUMS" ]; then
+            echo
+            echo '```'
+            cat "${{ env.FIRMWARE }}/SHA256SUMS"
+            echo '```'
+          else
+            echo "- SHA256SUMS not found."
+          fi
           echo
           echo "### Firmware Contents"
           ls -lh ${{ env.FIRMWARE }} | grep -v '^d' | awk '{printf("- `%s` (%s)\n", $9, $5)}'
@@ -242,6 +261,7 @@ jobs:
         name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
+               ${{ env.FIRMWARE }}/SHA256SUMS
 
     - name: Clean Up Old Workflow Runs (keep 2)
       uses: Mattraks/delete-workflow-runs@v2
