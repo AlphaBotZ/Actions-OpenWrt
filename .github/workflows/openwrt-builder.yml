@@ -134,7 +134,7 @@ jobs:
       run: |
         cd openwrt
         ./scripts/feeds update -a
-        ./scripts/feeds install -a -p
+        ./scripts/feeds install -a
 
     - name: Load Custom Configuration & Scripts
       run: |
