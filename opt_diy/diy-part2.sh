@@ -35,7 +35,16 @@ rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftabl
 #git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # 缺失依赖补充
-svn checkout https://github.com/coolsnowwolf/lede/trunk/package/libs/xcrypt
+cd openwrt/package
+git clone --filter=blob:none --no-checkout https://github.com/coolsnowwolf/lede.git lede-temp
+cd lede-temp
+git sparse-checkout init --cone
+git sparse-checkout set package/libs/xcrypt
+git checkout master
+mv package/libs/xcrypt ../xcrypt
+cd ..
+rm -rf lede-temp
+
 
 # ===== Theme =====
 rm -rf openwrt/package/luci-theme-argon
