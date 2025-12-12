@@ -48,3 +48,4 @@ git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
 [ -d "$GITHUB_WORKSPACE/luci-app-github-update" ] && \
 mv $GITHUB_WORKSPACE/luci-app-github-update openwrt/package/
 echo "CONFIG_PACKAGE_luci-app-github-update=y" >> openwrt/.config
+chmod +x luci-app-github-update/root/usr/bin/check_update.sh
