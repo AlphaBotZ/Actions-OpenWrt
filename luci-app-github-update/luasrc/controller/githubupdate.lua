@@ -1,3 +1,10 @@
+module("luci.controller.githubupdate", package.seeall)
+
+function index()
+    entry({"admin", "system", "githubupdate"}, template("githubupdate"), _("固件更新"), 90).dependent = true
+    entry({"admin", "system", "githubupdate", "upgrade"}, call("action_upgrade"), nil).leaf = true
+end
+
 function action_upgrade()
     local sys = require "luci.sys"
     local url = sys.exec("/usr/bin/check_update.sh url")

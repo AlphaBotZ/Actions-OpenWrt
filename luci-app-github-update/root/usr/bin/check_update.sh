@@ -5,10 +5,15 @@ CURRENT_VERSION=$(cat /etc/openwrt_version)
 
 LATEST_VERSION=$(curl -s $API | grep tag_name | cut -d '"' -f4)
 URL=$(curl -s $API | grep browser_download_url | grep sysupgrade.bin | cut -d '"' -f4)
-SHA256=$(curl -s $API | grep sha256 | cut -d '"' -f4)   # 假设你在 release assets 或说明里提供校验值
+SHA256=$(curl -s $API | grep sha256 | cut -d '"' -f4)   # 需要你在 Release 中提供
 
 if [ "$1" = "url" ]; then
     echo "$URL"
+    exit 0
+fi
+
+if [ "$1" = "sha256" ]; then
+    echo "$SHA256"
     exit 0
 fi
 

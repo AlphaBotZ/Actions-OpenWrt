@@ -1,0 +1,9 @@
+<%+header%>
+<h2>GitHub 固件更新</h2>
+<div>
+  <pre><%=luci.sys.exec("/usr/bin/check_update.sh")%></pre>
+</div>
+<form method="post" action="<%=url('admin/system/githubupdate/upgrade')%>">
+  <input type="submit" class="cbi-button cbi-button-apply" value="一键升级" />
+</form>
+<%+footer%>
