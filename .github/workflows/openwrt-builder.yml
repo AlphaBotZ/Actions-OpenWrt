@@ -235,6 +235,17 @@ jobs:
           echo "**Build Time:** $(date '+%Y-%m-%d %H:%M:%S %Z')"
           echo "**Build Environment:** GitHub Actions (Cloud CI)"
           echo
+          echo "### Firmware Contents"
+          ls -lh ${{ env.FIRMWARE }} | grep -v '^d' | awk '{printf("- `%s` (%s)\n", $9, $5)}'
+          echo
+          echo "---"
+          echo "**Notice:**"
+          echo "- Please verify the correct device before flashing."
+          echo "- Refer to OpenWrt Official Documentation for installation guidance."
+          echo "- For support and issue feedback, please use the repository's Issues section."
+          echo
+          echo "_This firmware is built automatically by GitHub Actions, ensuring integrity and official compliance._"
+          echo
           echo "### SHA256 checksums"
           if [ -f "${{ env.FIRMWARE }}/SHA256SUMS" ]; then
             echo
@@ -244,17 +255,6 @@ jobs:
           else
             echo "- SHA256SUMS not found."
           fi
-          echo
-          echo "### Firmware Contents"
-          ls -lh ${{ env.FIRMWARE }} | grep -v '^d' | awk '{printf("- `%s` (%s)\n", $9, $5)}'
-          echo
-          echo "---"
-          echo "**Notice:**"
-          echo "- Please verify the correct device before flashing."
-          echo "- Refer to [OpenWrt Official Documentation](https://openwrt.org/docs/guide-user/installation/installation_methods) for installation guidance."
-          echo "- For support and issue feedback, please use the repository's [Issues](https://github.com/${{ github.repository }}/issues) section."
-          echo
-          echo "_This firmware is built automatically by GitHub Actions, ensuring integrity and official compliance._"
         } > release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
