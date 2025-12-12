@@ -35,7 +35,7 @@ rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftabl
 #git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
 
 # 缺失依赖补充
-mv depends/libcrypt-compat openwrt/package
+
 
 # ===== Theme =====
 rm -rf openwrt/package/luci-theme-argon
