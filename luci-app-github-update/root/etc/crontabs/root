@@ -1,1 +1,0 @@
-0 3 * * * /usr/bin/check_update.sh >> /var/log/update.log
