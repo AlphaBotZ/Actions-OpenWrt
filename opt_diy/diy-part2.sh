@@ -36,7 +36,7 @@ rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftabl
 
 # 缺失依赖补充
 git clone https://github.com/coolsnowwolf/lede.git package/lede-tmp
-mv package/lede-tmp/package/libs/xcrypt/libcrypt-compat package/dependency-tmp/libcrypt-compat
+mv package/lede-tmp/package/libs/xcrypt package/dependency-tmp
 rm -rf package/lede-tmp
 
 # ===== Theme =====
