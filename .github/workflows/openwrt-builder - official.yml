@@ -75,7 +75,7 @@ jobs:
         [[ -n "${AGENT_TOOLSDIRECTORY}" ]] && sudo rm -rf "${AGENT_TOOLSDIRECTORY}"
         sudo -E apt update
         sudo -E apt -y install $(curl -fsSL https://raw.githubusercontent.com/AlphaBotZ/Actions-OpenWrt/refs/heads/main/depends_ubuntu_2204)
-        sudo -E apt -y install clang llvm lld
+        sudo -E apt -y install clang llvm lld python3-distutils
         sudo -E apt -y autoremove --purge
         sudo -E systemctl daemon-reload
         sudo -E apt clean && sudo -E apt autoclean
