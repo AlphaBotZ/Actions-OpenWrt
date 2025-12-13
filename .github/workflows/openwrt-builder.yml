@@ -170,23 +170,6 @@ jobs:
         rm -rf $GITHUB_WORKSPACE/opt
         df -Th
 
-    - name: Generate and export defconfig
-      run: |
-        cd openwrt
-        make defconfig
-        # 导出标准 defconfig
-        ./scripts/config/conf --defconfig=final_defconfig .config
-        # 导出完整 .config
-        cp .config defconfig_full
-        # 自动识别固件输出目录（适配所有设备）
-        firmware_dir=$(find bin/targets/ -type d -regex ".*/[a-z0-9_-]*$" | head -1)
-        mkdir -p $firmware_dir
-        cp final_defconfig $firmware_dir/openwrt_defconfig
-        cp defconfig_full $firmware_dir/openwrt_config_full
-        # 验证
-        echo "Defconfig 已导出到：$firmware_dir"
-        ls -lh $firmware_dir/*defconfig*
-
     - name: Compile the firmware
       id: compile
       run: |
