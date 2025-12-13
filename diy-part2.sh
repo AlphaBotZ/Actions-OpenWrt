@@ -47,4 +47,3 @@ git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
 # 集成自定义 LuCI 包
 git clone https://github.com/AlphaBotZ/luci-app-github-update.git package/luci-app-github-update
 echo "CONFIG_PACKAGE_luci-app-github-update=y" >> .config
-#chmod +x luci-app-github-update/root/usr/bin/check_update.sh
