@@ -43,7 +43,4 @@ git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-ap
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
 git clone https://github.com/sbwml/luci-app-openlist2 package/openlist
 git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
-
-# 集成自定义 LuCI 包
 git clone https://github.com/AlphaBotZ/luci-app-github-update.git package/luci-app-github-update
-echo "CONFIG_PACKAGE_luci-app-github-update=y" >> .config
