@@ -214,8 +214,17 @@ jobs:
       if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
       run: |
         cd "${{ env.FIRMWARE }}"
-        # 只为最终可刷的包生成校验；如需覆盖更多，放宽匹配
-        sha256sum *sysupgrade*.bin > SHA256SUMS
+        # 适配x86_64的sysupgrade.img（兼容路由器sysupgrade.bin），避免无文件报错
+        if compgen -G "*sysupgrade*" > /dev/null; then
+            # 优先匹配所有sysupgrade文件（x86是.img，路由器是.bin）
+            sha256sum *sysupgrade* > SHA256SUMS
+        elif compgen -G "*.img" > /dev/null || compgen -G "*.bin" > /dev/null; then
+            # 无sysupgrade时匹配所有img/bin（兜底）
+            sha256sum *.img *.bin 2>/dev/null > SHA256SUMS
+        else
+            # 无任何固件时生成空文件，避免后续步骤报错
+            touch SHA256SUMS
+        fi
         echo "SHA256SUMS generated:"
         cat SHA256SUMS
 
