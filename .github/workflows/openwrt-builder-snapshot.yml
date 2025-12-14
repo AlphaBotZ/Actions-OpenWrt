@@ -206,10 +206,10 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
       run: |
-        RELEASE_TAG="OpenWrt_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}"
+        RELEASE_TAG="OpenWrt_Snapshot_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}"
         echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
         {
-          echo "## OpenWrt Master Automated Release"
+          echo "## OpenWrt Snapshot Automated Release"
           echo
           echo "**Target Device:** ${{ env.DEVICE_NAME }}"
           echo "**Build Time:** $(date '+%Y-%m-%d %H:%M:%S %Z')"
