@@ -214,19 +214,23 @@ jobs:
       if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
       run: |
         cd "${{ env.FIRMWARE }}"
-        # 适配x86_64的sysupgrade.img（兼容路由器sysupgrade.bin），避免无文件报错
-        if compgen -G "*sysupgrade*" > /dev/null; then
+        # 清空可能存在的旧文件，避免残留
+        rm -f SHA256SUMS
+        # 优先匹配 sysupgrade 相关文件（包含 .img 和 .bin 后缀）
+        if compgen -G "*sysupgrade*.img" > /dev/null 2>&1 || compgen -G "*sysupgrade*.bin" > /dev/null 2>&1; then
             # 优先匹配所有sysupgrade文件（x86是.img，路由器是.bin）
-            sha256sum *sysupgrade* > SHA256SUMS
-        elif compgen -G "*.img" > /dev/null || compgen -G "*.bin" > /dev/null; then
+            sha256sum *sysupgrade*.img *sysupgrade*.bin > SHA256SUMS 2>&1
+        # 兜底匹配所有镜像文件（.img/.bin/.gz 等常见格式）
+        elif compgen -G "*.img" > /dev/null 2>&1 || compgen -G "*.bin" > /dev/null 2>&1 || compgen -G "*.gz" > /dev/null 2>&1; then
             # 无sysupgrade时匹配所有img/bin（兜底）
-            sha256sum *.img *.bin 2>/dev/null > SHA256SUMS
+            sha256sum *.img *.bin *.gz > SHA256SUMS 2>&1
         else
             # 无任何固件时生成空文件，避免后续步骤报错
             touch SHA256SUMS
         fi
-        echo "SHA256SUMS generated:"
-        cat SHA256SUMS
+        # 打印生成结果（即使为空也不报错）
+        echo "SHA256SUMS generated (content below):"
+        cat SHA256SUMS || echo "SHA256SUMS is empty"
 
     - name: Generate Release Tag and Description
       id: tag
