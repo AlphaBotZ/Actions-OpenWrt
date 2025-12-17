@@ -210,23 +210,43 @@ jobs:
         name: OpenWrt_Firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
         
-    - name: Generate SHA256SUMS
-      if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
-      run: |
-        cd "${{ env.FIRMWARE }}"
-        # 适配x86_64的sysupgrade.img（兼容路由器sysupgrade.bin），避免无文件报错
-        if compgen -G "*sysupgrade*" > /dev/null; then
-            # 优先匹配所有sysupgrade文件（x86是.img，路由器是.bin）
-            sha256sum *sysupgrade* > SHA256SUMS
-        elif compgen -G "*.img" > /dev/null || compgen -G "*.bin" > /dev/null; then
-            # 无sysupgrade时匹配所有img/bin（兜底）
-            sha256sum *.img *.bin 2>/dev/null > SHA256SUMS
-        else
-            # 无任何固件时生成空文件，避免后续步骤报错
-            touch SHA256SUMS
-        fi
-        echo "SHA256SUMS generated:"
-        cat SHA256SUMS
+- name: Generate SHA256SUMS
+  if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
+  run: |
+    # 确保固件目录存在，cd失败时明确报错
+    mkdir -p "${{ env.FIRMWARE }}" || { echo "❌ 创建固件目录失败"; exit 1; }
+    cd "${{ env.FIRMWARE }}" || { echo "❌ 无法进入目录 ${{ env.FIRMWARE }}"; exit 1; }
+
+    # ========== 适配x86_64固件（无sysupgrade.bin的场景） ==========
+    # 1. 先尝试匹配所有sysupgrade相关文件（x86可能是sysupgrade.img）
+    SYSUPGRADE_FILES=$(compgen -G "*sysupgrade*")
+    # 2. 匹配x86_64所有img文件（包括combined-efi.img、rootfs.img等）
+    IMG_FILES=$(compgen -G "*.img")
+    # 3. 兜底匹配bin/tar.gz/xz（x86偶尔会有tar.gz格式固件）
+    OTHER_FILES=$(compgen -G "*.bin")$(compgen -G "*.tar.gz")$(compgen -G "*.xz")
+
+    # 生成SHA256SUMS：优先sysupgrade → 所有img → 其他固件格式 → 空文件
+    if [ -n "$SYSUPGRADE_FILES" ]; then
+        sha256sum $SYSUPGRADE_FILES > SHA256SUMS
+        echo "✅ 匹配到sysupgrade文件，生成校验和："
+        echo "$SYSUPGRADE_FILES"
+    elif [ -n "$IMG_FILES" ]; then
+        sha256sum $IMG_FILES > SHA256SUMS
+        echo "✅ 未找到sysupgrade文件，匹配到img文件，生成校验和："
+        echo "$IMG_FILES"
+    elif [ -n "$OTHER_FILES" ]; then
+        sha256sum $OTHER_FILES > SHA256SUMS
+        echo "✅ 未找到img文件，匹配到其他固件文件，生成校验和："
+        echo "$OTHER_FILES"
+    else
+        touch SHA256SUMS
+        echo "⚠️ 未找到任何固件文件（无sysupgrade/img/bin等），生成空SHA256SUMS"
+    fi
+
+    # 输出最终结果，确保脚本不会因cat空文件报错
+    echo "📄 SHA256SUMS generated:"
+    cat SHA256SUMS || echo "（文件为空）"
+  shell: /usr/bin/bash -e {0}
 
     - name: Generate Release Tag and Description
       id: tag
