@@ -219,11 +219,11 @@ jobs:
         # 优先匹配 sysupgrade 相关文件（包含 .img 和 .bin 后缀）
         if compgen -G "*sysupgrade*.img" > /dev/null 2>&1 || compgen -G "*sysupgrade*.bin" > /dev/null 2>&1; then
             # 优先匹配所有sysupgrade文件（x86是.img，路由器是.bin）
-            sha256sum *sysupgrade*.img *sysupgrade*.bin > SHA256SUMS 2>&1
+            sha256sum *sysupgrade*.img *sysupgrade*.bin > SHA256SUMS 2>&1 || true
         # 兜底匹配所有镜像文件（.img/.bin/.gz 等常见格式）
         elif compgen -G "*.img" > /dev/null 2>&1 || compgen -G "*.bin" > /dev/null 2>&1 || compgen -G "*.gz" > /dev/null 2>&1; then
             # 无sysupgrade时匹配所有img/bin（兜底）
-            sha256sum *.img *.bin *.gz > SHA256SUMS 2>&1
+            sha256sum *.img *.bin *.gz > SHA256SUMS 2>&1 || true
         else
             # 无任何固件时生成空文件，避免后续步骤报错
             touch SHA256SUMS
