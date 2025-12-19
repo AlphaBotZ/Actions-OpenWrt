@@ -2,7 +2,6 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 #
 # File: .github/workflows/openwrt-builder.yml
-# Modified to avoid "Unable to locate package" errors (ref: b1e26b29091e0e5458fefe2a86e21368dae0c054)
 #
 
 name: Master OpenWrt Builder
