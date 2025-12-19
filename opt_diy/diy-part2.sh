@@ -23,19 +23,9 @@
 chmod -R 755 files
 set -e
 
-sed -i '$a src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
-rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
-
 # ===== helloworld =====
 # rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 # git clone https://github.com/sbwml/openwrt_helloworld.git package/helloworld
-
-# 更新 golang 1.25 版本
-#rm -rf feeds/packages/lang/golang
-#git clone https://github.com/sbwml/packages_lang_golang -b 25.x feeds/packages/lang/golang
-
-# 缺失依赖补充
-
 
 # ===== Theme =====
 rm -rf openwrt/package/luci-theme-argon
@@ -46,7 +36,3 @@ git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-ap
 git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
 git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git package/openwrt-cdnspeedtest
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
-git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
-git clone https://github.com/sbwml/luci-app-openlist2 package/openlist
-git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
