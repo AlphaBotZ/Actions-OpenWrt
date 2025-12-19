@@ -211,15 +211,6 @@ jobs:
       with:
         name: OpenWrt_Firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-        
-    - name: Generate SHA256SUMS
-      if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
-      run: |
-        cd "${{ env.FIRMWARE }}"
-        # 只为最终可刷的包生成校验；如需覆盖更多，放宽匹配
-        sha256sum *sysupgrade*.bin > SHA256SUMS
-        echo "SHA256SUMS generated:"
-        cat SHA256SUMS
 
     - name: Generate Release Tag and Description
       id: tag
@@ -245,15 +236,6 @@ jobs:
           echo
           echo "_This firmware is built automatically by GitHub Actions, ensuring integrity and official compliance._"
           echo
-          echo "### SHA256 checksums"
-          if [ -f "${{ env.FIRMWARE }}/SHA256SUMS" ]; then
-            echo
-            echo '```'
-            cat "${{ env.FIRMWARE }}/SHA256SUMS"
-            echo '```'
-          else
-            echo "- SHA256SUMS not found."
-          fi
         } > release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
