@@ -18,7 +18,7 @@ on:
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: main
+  REPO_BRANCH: openwrt-24.10
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: opt_diy/.config
   DIY_P1_SH: opt_diy/diy-part1.sh
@@ -206,7 +206,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
       run: |
-        RELEASE_TAG="OpenWrt_Snapshot_${{ env.DEVICE_NAME }}"
+        RELEASE_TAG="OpenWrt_24.10_${{ env.DEVICE_NAME }}"
         echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
         {
           echo "## OpenWrt Automated Release"
