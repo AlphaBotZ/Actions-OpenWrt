@@ -36,3 +36,6 @@ git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-ap
 git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
 git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git package/openwrt-cdnspeedtest
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
+git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
+git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
