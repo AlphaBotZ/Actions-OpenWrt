@@ -5,7 +5,7 @@
 # Modified to avoid "Unable to locate package" errors (ref: b1e26b29091e0e5458fefe2a86e21368dae0c054)
 #
 
-name: OpenWrt 24.10 Builder
+name: OpenWrt 25.12 Builder
 
 on:
   workflow_dispatch:
