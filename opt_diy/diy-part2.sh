@@ -20,8 +20,8 @@
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
 # Files大法文件权限
-chmod -R 755 files
-set -e
+#chmod -R 755 files
+#set -e
 
 # ===== helloworld =====
 # rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
@@ -29,14 +29,15 @@ set -e
 
 # ===== Theme =====
 rm -rf openwrt/package/luci-theme-argon
-git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
-git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
+#git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
+#git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
 
 # ===== Community Applications =====
-git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
-git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git package/openwrt-cdnspeedtest
-git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
-git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
-git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
-git clone https://github.com/vernesong/OpenClash package/OpenClash
+#git clone https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
+#git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git package/openwrt-cdnspeedtest
+#git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+#git clone https://github.com/rufengsuixing/luci-app-zerotier.git package/luci-app-zerotier
+#git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
+#git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
+#git clone https://github.com/vernesong/OpenClash package/OpenClash
+git clone https://github.com/Actions-OpenWrt/openwrt-packages package/openwrt-packages
