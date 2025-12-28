@@ -29,6 +29,7 @@
 # ===== helloworld =====
 # rm -rf feeds/packages/net/{xray-core,v2ray-core,v2ray-geodata,sing-box}
 # git clone https://github.com/sbwml/openwrt_helloworld.git package/helloworld
+git clone https://github.com/AlphaBotZ/openwrt-packages.git  package/openwrt-packages
 
 # ===== Theme =====
 rm -rf package/lean/luci-theme-argon
