@@ -40,4 +40,4 @@ rm -rf openwrt/package/luci-theme-argon
 #git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
 #git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
 #git clone https://github.com/vernesong/OpenClash package/OpenClash
-git clone https://github.com/Actions-OpenWrt/openwrt-packages package/openwrt-packages
+git clone https://github.com/AlphaBotZ/openwrt-packages.git  package/openwrt-packages
