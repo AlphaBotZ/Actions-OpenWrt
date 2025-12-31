@@ -206,7 +206,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
       run: |
-        RELEASE_TAG="OpenWrt_24.10_${{ env.DEVICE_NAME }}"
+        RELEASE_TAG="OpenWrt_24.10.5_${{ env.DEVICE_NAME }}"
         echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
         {
           echo "## OpenWrt Automated Release"
@@ -244,14 +244,14 @@ jobs:
       with:
         token: ${{ secrets.GH_TOKEN }}
         repository: ${{ github.repository }}
-        retain_days: 7
-        keep_minimum_runs: 6
+        retain_days: 30
+        keep_minimum_runs: 2
 
     - name: Delete Old Releases
       uses: dev-drprasad/delete-older-releases@v0.2.0
       if: env.UPLOAD_RELEASE == 'true'
       with:
-        keep_latest: 6
+        keep_latest: 3
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
