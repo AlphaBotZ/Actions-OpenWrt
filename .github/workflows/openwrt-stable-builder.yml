@@ -5,7 +5,7 @@
 # Modified to avoid "Unable to locate package" errors (ref: b1e26b29091e0e5458fefe2a86e21368dae0c054)
 #
 
-name: OpenWrt 24.10.5 Builder
+name: OpenWrt Stable Builder
 
 on:
   workflow_dispatch:
@@ -206,7 +206,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
       run: |
-        RELEASE_TAG="OpenWrt_24.10.5_${{ env.DEVICE_NAME }}"
+        RELEASE_TAG="OpenWrt_Stable_${{ env.DEVICE_NAME }}"
         echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
         {
           echo "## OpenWrt Automated Release"
