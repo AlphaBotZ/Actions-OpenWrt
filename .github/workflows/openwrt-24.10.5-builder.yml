@@ -5,7 +5,7 @@
 # Modified to avoid "Unable to locate package" errors (ref: b1e26b29091e0e5458fefe2a86e21368dae0c054)
 #
 
-name: OpenWrt 24.10 Builder
+name: OpenWrt 24.10.5 Builder
 
 on:
   workflow_dispatch:
@@ -17,8 +17,8 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-24.10
+  REPO_URL: https://git.openwrt.org/openwrt/openwrt.git
+  REPO_BRANCH: openwrt-24.10.5
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: opt_diy/.config
   DIY_P1_SH: opt_diy/diy-part1.sh
