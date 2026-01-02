@@ -42,7 +42,9 @@ rm -rf openwrt/package/luci-theme-argon
 #git clone https://github.com/vernesong/OpenClash package/OpenClash
 git clone https://github.com/AlphaBotZ/openwrt-packages.git  package/openwrt-packages
 
-
 # Rust
 sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.92.0/g' feeds/packages/lang/rust/Makefile
 sed -i 's/PKG_HASH:=.*/PKG_HASH:=ebee170bfe4c4dfc59521a101de651e5534f4dae889756a5c97ca9ea40d0c307/g' feeds/packages/lang/rust/Makefile
+
+./scripts/feeds update -a
+./scripts/feeds install -a
