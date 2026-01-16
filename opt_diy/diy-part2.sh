@@ -41,7 +41,6 @@ rm -rf openwrt/package/luci-theme-argon
 #git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
 #git clone https://github.com/vernesong/OpenClash package/OpenClash
 git clone https://github.com/AlphaBotZ/openwrt-packages.git  package/openwrt-packages
-rm -rf openwrt/package/openwrt-packages/wall/geoview
 
 # Rust
 sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.92.0/g' feeds/packages/lang/rust/Makefile
